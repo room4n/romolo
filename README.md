@@ -3,6 +3,7 @@
 Install:
 - lite Rasbian with ssh
 - nodejs
+- express
 - npm
 - git
 - mariadb (sql)
