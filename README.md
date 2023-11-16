@@ -38,4 +38,8 @@ Configure:
 - no-ip ddns service
 
 ## GIT commands
-
+- git clone [path]
+- git fetch //get updates from github
+- git rebase //apply newest updates
+- git config --global user.name "username"
+- git config --global user.email "email"
