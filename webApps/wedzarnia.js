@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const wedzarniaRoutes = express.Router();
 const connection = require("../config/database");
 
 router.get('/', (req,res,next)=>{
@@ -11,3 +11,5 @@ router.get('/', (req,res,next)=>{
         }
     })
 })
+
+module.exports = wedzarniaRoutes;
