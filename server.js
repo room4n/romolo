@@ -1,4 +1,4 @@
-const express = require('exporess');
+const express = require('express');
 const server = express();
 const wedzarniaRoutes = require('./webApps/wedzarnia');
 
