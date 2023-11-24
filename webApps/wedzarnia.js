@@ -16,7 +16,7 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
 wedzarniaRoutes.post('/addEntry',(req,res,next)=>{
     
     res.status(200).json({
-        message: req.body
+        message: "got ya"
     });
 })
 
