@@ -15,9 +15,7 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
 });
 wedzarniaRoutes.post('/addEntry',(req,res,next)=>{
     
-    res.status(200).json({
-        message: "got ya"
-    });
+    res.send(req.body);
 })
 
 module.exports = wedzarniaRoutes;
