@@ -35,7 +35,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     });
     //compare todays date with last smoke day date
     
-    var isSameDay = (lastSmokeDate == currentDay);
+    //var isSameDay = (lastSmokeDate == currentDay);
     
 })
 
