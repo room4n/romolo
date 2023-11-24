@@ -1,4 +1,6 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const wedzarniaRoutes = express.Router();
 const connection = require("../config/database");
 
@@ -11,7 +13,7 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
         }
     })
 });
-wedzarniaRoutes.post('/addEntry',(req,res,next)=>{
+wedzarniaRoutes.post('/',(req,res,next)=>{
     
     res.status(200).json({
         message: 'wedzarnia entry post handled'
