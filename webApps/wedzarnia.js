@@ -21,11 +21,11 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     //get last smoke id date
     var lastSmokeDate = connection.query("select date from SmokeDay ORDER BY id DESC LIMIT 1");
     //compare todays date with last smoke day date
-    var currentDay = new Date();
+    var currentDay = new Date().getDate();
     var isSameDay = (lastSmokeDate == currentDay.getDate());
     res.status(200).json({
         "lastsmokeday": lastSmokeDate,
-        "currentdate": currentDay.getDate()
+        "currentdate": currentDay
     });
 })
 
