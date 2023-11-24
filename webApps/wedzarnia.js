@@ -25,7 +25,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         if(err){
             res.send(err.message)
         } else {
-            var lastdate = (result[0].date).split('T')[0];
+           // var lastdate = (result[0].date).split('T')[0];
             res.status(200).json({
                 message: {
                     last: lastdate
