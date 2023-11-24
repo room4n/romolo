@@ -32,8 +32,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     var isSameDay = (lastSmokeDate == currentDay);
     res.status(200).json({
         message: {
-            last:lastSmokeDate,
-            current: currentDay
+            last: lastSmokeDate
         }
     });
 })
