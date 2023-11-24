@@ -25,11 +25,12 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         if(err){
             res.send(err.message)
         } else {
-            res.status(200).json({
+            res.send(result.date)
+            /* res.status(200).json({
                 message: {
                     last: result.date
-                }
-            });
+                } 
+            });*/
         }
     });
     //compare todays date with last smoke day date
