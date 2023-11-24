@@ -19,20 +19,17 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
 wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     
     //get last smoke id date
-    var lastSmokeDate;
+    
+    var currentDay = new Date();
     connection.query("select date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message)
         } else {
-            lastSmokeDate = result;
-        }
-    });
-    //compare todays date with last smoke day date
-    var currentDay = new Date();
-    var isSameDay = (lastSmokeDate == currentDay);
-    res.status(200).json({
-        message: {
-            last: lastSmokeDate
+            res.status(200).json({
+                message: {
+                    last: result
+                }
+            });
         }
     });
 })
