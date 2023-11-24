@@ -28,7 +28,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             
             res.status(200).json({
                 message: {
-                    last: result.body.date
+                    last: result.body
                 } 
             })
         }
