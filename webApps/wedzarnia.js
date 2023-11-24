@@ -10,6 +10,11 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
             res.send(result)
         }
     })
+});
+wedzarniaRoutes.post('/addEntry',(req,res,next)=>{
+    res.status(200).json({
+        message: 'wedzarnia entry post handled'
+    });
 })
 
 module.exports = wedzarniaRoutes;
