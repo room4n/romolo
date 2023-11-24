@@ -21,7 +21,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     //get last smoke id date
     var lastSmokeDate;
     
-    connection.query("select (date AS DATE) from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+    connection.query("select CAST(date AS DATE) from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message)
         } else {
