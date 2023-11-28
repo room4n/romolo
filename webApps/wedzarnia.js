@@ -29,33 +29,24 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         second: '2-digit',
         hour12: false 
     };
-    var smokeID;
-    var lastDate;
-    var currentDate;
-    var currentTime;
-
-    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
-        if(err){
-            res.send(err.message)
-        } else {
-            smokeID = result[0].id;
-            lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
-            currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
-            currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
-        }});
-
+            var lastSmoke = getLastSmoke();
+            var smokeID = lastSmoke.id;
+            var lastDate = new Date(JSON.parse(JSON.stringify(lastSmoke.date))).toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
+            
          //if dates are same
             if(lastDate != currentDate){
                 //add entry with the same smoke id
                 //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
-                connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ('"+smokeID+"','"+currentTime+"','"+req.body.tempBottom+"','"+req.body.tempTop+"','"+req.body.prod1Temp+"','"+req.body.prod2Temp+"')",(err,result)=>{
+               /*  connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ('"+smokeID+"','"+currentTime+"','"+req.body.tempBottom+"','"+req.body.tempTop+"','"+req.body.prod1Temp+"','"+req.body.prod2Temp+"')",(err,result)=>{
                     if(err){
                         res.send(err.message);
                         status = false;
                     } else {
                         status = true;
                     }
-                });
+                }) */
             } else {
                 //create new smoke id entry 
                 //add entry with new smoke id
@@ -67,8 +58,17 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 id: smokeID,
                 bottomTemp: req.body.tempBottom,
                 status: status
-            })
-        });
+            })      
+});
+function getLastSmoke(){
+    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+        if(err){
+            return err.message;
+        } else {
+            return result[0];
+        }
+    })
+}
 
 /* function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
     connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+entryID+","+timr+","+tempBottom+","+tempTop+","+prod1Temp+","+prod2Temp+")",(err,result)=>{
