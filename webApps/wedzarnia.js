@@ -29,18 +29,29 @@ wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
         second: '2-digit',
         hour12: false 
     };
-    var resultat = await getLastSmoke();
-    var smokeID = resultat.smokeID;
-    var lastDate = resultat.lastDate;
+    //var resultat = await getLastSmoke();
+    //var smokeID = resultat.smokeID;
+    //var lastDate = resultat.lastDate;
   
-    /* connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+    / connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message);
         } else {
-            smokeID = result[0].id;
-            lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
+            var smokeID = result[0].id;
+            var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
+
+            res.status(200).json({
+                last: lastDate,
+                curr: currentDate,
+                currTime: currentTime,
+                id: smokeID,
+                bottomTemp: req.body.tempBottom,
+                status: status
+            })      
         }
-    }); */
+    }); 
             
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
     var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
@@ -61,14 +72,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
                 //create new smoke id entry 
                 //add entry with new smoke id
             }
-            res.status(200).json({
-                last: lastDate,
-                curr: currentDate,
-                currTime: currentTime,
-                id: smokeID,
-                bottomTemp: req.body.tempBottom,
-                status: status
-            })      
+            
 });
 async function getLastSmoke(){
     connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
