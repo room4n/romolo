@@ -60,7 +60,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 status: status
             })      
 });
-function getLastSmoke(){
+function* getLastSmoke(){
     connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             return err.message;
