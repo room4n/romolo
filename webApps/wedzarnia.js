@@ -24,7 +24,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         } else {
             var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date)));
             var currentDate = new Date("2023-11-23T23:00:00.000Z");
-            var lastDateC = lastDate.getFullYear() + "-" +lastDate.getMonth() + "-" + lastDate.getDay();
+            var lastDateC = lastDate.getFullYear() + "-" +lastDate.getMonth()+1 + "-" + lastDate.getUTCDay();
             var comparison = (lastDate == currentDate);
             res.status(200).json({
                 last: lastDateC,
