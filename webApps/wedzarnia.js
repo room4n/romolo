@@ -25,6 +25,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
  var formatOptionsTime = { 
     hour:   '2-digit', 
     minute: '2-digit',
+    second: '2-digit',
     hour12: false 
 };
     connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
