@@ -43,6 +43,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 last: lastDate,
                 curr: currentDate,
                 id: smokeID,
+                bottomTemp: req.body.tempBottom
             })
         }
     });
