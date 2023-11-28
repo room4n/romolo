@@ -34,11 +34,12 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             var smokeID = result[0].id;
             var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
             var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime);
             
          //if dates are same
             if(lastDate == currentDate){
                 //add entry with the same smoke id
-                insertEntry(smokeID, currentDate.toLocaleDateString('pl-PL',formatOptionsTime),req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
+                insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
             } else {
                 //create new smoke id entry 
                 //add entry with new smoke id
