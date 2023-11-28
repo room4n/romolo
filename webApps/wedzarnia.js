@@ -53,7 +53,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, (req,res,next)=>{
         }
     }); 
     res.status(200).json({
-        message: data
+        message: data[0]
     })
             
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
