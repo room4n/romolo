@@ -65,7 +65,7 @@ function getLastSmoke(){
         if(err){
             return err.message;
         } else {
-            return result[0];
+            return {id: result[0].id, date: result[0].date};
         }
     })
 }
