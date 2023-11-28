@@ -18,24 +18,33 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
 });
 wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     
-    connection.query("select date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message)
         } else {
             var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date)));
-            var currentDate = new Date("2023-11-23T23:00:00.000Z");
+            var smokeID = result[0].id;
+            var currentDate = new Date();
             var formatOptions = { 
                 day:    '2-digit', 
                 month:  '2-digit', 
                 year:   'numeric',
+                //hour:   '2-digit', 
+                //minute: '2-digit',
                 hour12: false 
          };
          currentDate = currentDate.toLocaleDateString('pl-PL',formatOptions);
          lastDate = lastDate.toLocaleDateString('pl-PL',formatOptions);
-            var comparison = (lastDate == currentDate);
+         //if dates are same
+            if(lastDate == currentDate){
+                
+            } else {
+
+            }
             res.status(200).json({
                 last: lastDate,
                 curr: currentDate,
+                id: smokeID,
                 comp: comparison
             })
         }
