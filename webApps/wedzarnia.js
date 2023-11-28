@@ -31,7 +31,8 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 hour12: false 
          };
          currentDate = currentDate.toLocaleDateString('pl-PL',formatOptions);
-            var comparison = (lastDate === currentDate);
+         lastDate = lastDate.toLocaleDateString('pl-PL',formatOptions);
+            var comparison = (lastDate == currentDate);
             res.status(200).json({
                 last: lastDate,
                 curr: currentDate,
