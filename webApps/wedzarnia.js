@@ -43,7 +43,6 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
             currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
         }});
-        connection.end();
 
          //if dates are same
             if(lastDate != currentDate){
@@ -57,7 +56,6 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                         status = true;
                     }
                 });
-                connection.end();
             } else {
                 //create new smoke id entry 
                 //add entry with new smoke id
