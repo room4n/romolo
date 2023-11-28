@@ -15,7 +15,7 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
         }
     })
 });
-wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
+wedzarniaRoutes.post('/addEntry',jsonParser, (req,res,next)=>{
     var status;
     var formatOptionsDate = { 
         day:    '2-digit', 
@@ -33,7 +33,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
     //var smokeID = resultat.smokeID;
     //var lastDate = resultat.lastDate;
   
-    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+    var data = connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message);
         } else {
@@ -42,16 +42,19 @@ wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
             var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
             var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
 
-            res.status(200).json({
+            /* res.status(200).json({
                 last: lastDate,
                 curr: currentDate,
                 currTime: currentTime,
                 id: smokeID,
                 bottomTemp: req.body.tempBottom,
                 status: status
-            })      
+            })       */
         }
     }); 
+    res.status(200).json({
+        message: data
+    })
             
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
     var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
