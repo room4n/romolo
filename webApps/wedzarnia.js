@@ -7,7 +7,7 @@ const connection = require("../config/database");
 var jsonParser = bodyParser.json();
 
 wedzarniaRoutes.get('/', (req,res,next)=>{
-    connection.query("select * from Products",(err,result)=>{
+    connection.query("select * from Entries",(err,result)=>{
         if(err){
             res.send(err.message)
         } else {
@@ -40,7 +40,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
          //if dates are same
             if(lastDate == currentDate){
                 //add entry with the same smoke id
-                //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
+                insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
             } else {
                 //create new smoke id entry 
                 //add entry with new smoke id
