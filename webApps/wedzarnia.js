@@ -33,7 +33,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
     //var smokeID = resultat.smokeID;
     //var lastDate = resultat.lastDate;
   
-    / connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message);
         } else {
