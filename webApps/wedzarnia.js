@@ -15,7 +15,7 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
         }
     })
 });
-wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
+wedzarniaRoutes.post('/addEntry',jsonParser,async (req,res,next)=>{
     var status;
     var formatOptionsDate = { 
         day:    '2-digit', 
@@ -29,21 +29,21 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         second: '2-digit',
         hour12: false 
     };
-    var smokeID;
-    var lastDate;
+    var resultat = await getLastSmoke();
+    var smokeID = resultat.smokeID;
+    var lastDate = resultat.lastDate;
   
-            connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
-                if(err){
-                    res.send(err.message);
-                } else {
-                    smokeID = result[0].id;
-                    lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
-                }
-            })
+    /* connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+        if(err){
+            res.send(err.message);
+        } else {
+            smokeID = result[0].id;
+            lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
+        }
+    }); */
             
-            
-            var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
-            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
+    var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
+    var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
             
          //if dates are same
             if(lastDate != currentDate){
@@ -70,8 +70,17 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 status: status
             })      
 });
-function* getLastSmoke(){
-    
+async function getLastSmoke(){
+    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+        if(err){
+            return err.message;
+        } else {
+           return {
+                smokeID : result[0].id,
+                lastDate : new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate)
+            }
+        }
+    });
 }
 
 /* function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
