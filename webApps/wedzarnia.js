@@ -37,28 +37,21 @@ wedzarniaRoutes.post('/addEntry',jsonParser, (req,res,next)=>{
         if(err){
             res.send(err.message);
         } else {
-            return {
-            smokeID : result[0].id,
-            lastDate : new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate)
-            }
+            var smokeID = result[0].id;
+            var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
+            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
 
-            /* res.status(200).json({
+             res.status(200).json({
                 last: lastDate,
                 curr: currentDate,
                 currTime: currentTime,
                 id: smokeID,
                 bottomTemp: req.body.tempBottom,
                 status: status
-            })       */
+            })       
         }
     }); 
-    res.status(200).json({
-        message: data.smokeID
-    })
-            
-    var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
-    var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
-            
          //if dates are same
             //if(lastDate != currentDate){
                 //add entry with the same smoke id
