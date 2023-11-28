@@ -24,6 +24,15 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         } else {
             var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date)));
             var currentDate = new Date("2023-11-23T23:00:00.000Z");
+            var formatOptions = { 
+                day:    '2-digit', 
+                month:  '2-digit', 
+                year:   'numeric',
+                hour:   '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+         };
+         currentDate = currentDate.toLocaleDateString('pl-PL',formatOptions);
             var comparison = (lastDate === currentDate);
             res.status(200).json({
                 last: lastDate,
