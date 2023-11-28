@@ -30,7 +30,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         hour12: false 
     };
             var lastSmoke = getLastSmoke();
-            var smokeID = lastSmoke.id;
+            //var smokeID = lastSmoke.id;
             var lastDate = new Date(JSON.parse(JSON.stringify(lastSmoke.date))).toLocaleDateString('pl-PL',formatOptionsDate);
             var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
             var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
@@ -55,7 +55,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 last: lastDate,
                 curr: currentDate,
                 currTime: currentTime,
-                id: smokeID,
+               // id: smokeID,
                 bottomTemp: req.body.tempBottom,
                 status: status
             })      
