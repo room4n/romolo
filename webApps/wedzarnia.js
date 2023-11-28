@@ -37,10 +37,10 @@ wedzarniaRoutes.post('/addEntry',jsonParser, (req,res,next)=>{
         if(err){
             res.send(err.message);
         } else {
-            var smokeID = result[0].id;
-            var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
-            var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
-            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
+            return {
+            smokeID : result[0].id,
+            lastDate : new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate)
+            }
 
             /* res.status(200).json({
                 last: lastDate,
@@ -53,7 +53,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, (req,res,next)=>{
         }
     }); 
     res.status(200).json({
-        message: data[0]
+        message: data.smokeID
     })
             
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
