@@ -42,7 +42,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             if(lastDate != currentDate){
                 //add entry with the same smoke id
                 //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
-                connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+smokeID+","+currentTime+","+req.body.tempBottom+","+req.body.tempTop+","+req.body.prod1Temp+","+req.body.prod2Temp+")",(err,result)=>{
+                connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ('"+smokeID+"','"+currentTime+"','"+req.body.tempBottom+"','"+req.body.tempTop+"','"+req.body.prod1Temp+"','"+req.body.prod2Temp+"')",(err,result)=>{
                     if(err){
                         res.send(err.message);
                         status = false;
@@ -68,7 +68,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     
 });
 
-function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
+/* function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
     connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+entryID+","+timr+","+tempBottom+","+tempTop+","+prod1Temp+","+prod2Temp+")",(err,result)=>{
         if(err){
             res.send(err.message);
@@ -78,5 +78,5 @@ function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
             })
         }
     })
-};
+}; */
 module.exports = wedzarniaRoutes;
