@@ -16,6 +16,7 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
     })
 });
 wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
+    var status;
     var formatOptionsDate = { 
         day:    '2-digit', 
         month:  '2-digit', 
@@ -40,7 +41,15 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
          //if dates are same
             if(lastDate == currentDate){
                 //add entry with the same smoke id
-                insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
+                //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
+                connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+smokeID+","+currentTime+","+req.body.tempBottom+","+req.body.tempTop+","+req.body.prod1Temp+","+req.body.prod2Temp+")",(err,result)=>{
+                    if(err){
+                        res.send(err.message);
+                        status = false;
+                    } else {
+                        status = true;
+                    }
+                })
             } else {
                 //create new smoke id entry 
                 //add entry with new smoke id
@@ -50,7 +59,8 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 curr: currentDate,
                 currTime: currentTime,
                 id: smokeID,
-                bottomTemp: req.body.tempBottom
+                bottomTemp: req.body.tempBottom,
+                status: status
             })
         }
     });
