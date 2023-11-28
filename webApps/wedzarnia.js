@@ -6,7 +6,6 @@ const connection = require("../config/database");
 
 var jsonParser = bodyParser.json();
 
-
 wedzarniaRoutes.get('/', (req,res,next)=>{
     connection.query("select * from Products",(err,result)=>{
         if(err){
@@ -33,14 +32,12 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptions);
             var currentDate = new Date().toLocaleDateString('pl-PL',formatOptions);
             
-         //currentDate = currentDate.toLocaleDateString('pl-PL',formatOptions);
-         //lastDate = lastDate.toLocaleDateString('pl-PL',formatOptions);
-         
          //if dates are same
             if(lastDate == currentDate){
-                
+                //add entry with the same smoke id
             } else {
-
+                //create new smoke id entry 
+                //add entry with new smoke id
             }
             res.status(200).json({
                 last: lastDate,
