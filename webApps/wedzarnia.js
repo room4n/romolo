@@ -59,6 +59,14 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
 });
 
 function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
-
+    connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+entryID+","+timr+","+tempBottom+","+tempTop+","+prod1Temp+","+prod2Temp+")",(err,result)=>{
+        if(err){
+            res.send(err.message);
+        } else {
+            res.status(200).json({
+                message: "inserted"
+            })
+        }
+    })
 };
 module.exports = wedzarniaRoutes;
