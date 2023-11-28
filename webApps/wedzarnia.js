@@ -39,7 +39,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
             
          //if dates are same
-            if(lastDate == currentDate){
+            if(lastDate != currentDate){
                 //add entry with the same smoke id
                 //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
                 connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+smokeID+","+currentTime+","+req.body.tempBottom+","+req.body.tempTop+","+req.body.prod1Temp+","+req.body.prod2Temp+")",(err,result)=>{
