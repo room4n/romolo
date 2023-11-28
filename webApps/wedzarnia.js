@@ -34,7 +34,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             var smokeID = result[0].id;
             var lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
             var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
-            //var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime);
+            var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime);
             
          //if dates are same
             if(lastDate == currentDate){
@@ -47,7 +47,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             res.status(200).json({
                 last: lastDate,
                 curr: currentDate,
-                currTime: currentDate.toLocaleDateString('pl-PL',formatOptionsTime),
+                currTime: currentTime,
                 id: smokeID,
                 bottomTemp: req.body.tempBottom
             })
