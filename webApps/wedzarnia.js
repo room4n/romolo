@@ -26,7 +26,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
             var currentDate = new Date("2023-11-23T23:00:00.000Z");
             var comparison = (lastDate === currentDate);
             res.status(200).json({
-                last: lastDateC,
+                last: lastDate,
                 curr: currentDate,
                 comp: comparison
             })
