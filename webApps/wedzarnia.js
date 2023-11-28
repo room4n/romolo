@@ -19,17 +19,18 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
 wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
     
     //get last smoke id date
-    var lastSmokeDate;
+    var currentDate = new Date();
     
     connection.query("select date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             res.send(err.message)
         } else {
             var lastdate = JSON.parse(JSON.stringify(result[0].date));
-            var lastd = new Date(lastdate).getDate();
+            var lastd = new Date(lastdate)
             res.status(200).json({
                 message: {
-                    last: lastd
+                    last: lastd,
+                    curr: currentDate
                 } 
             })
         }
