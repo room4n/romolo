@@ -45,7 +45,6 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 last: lastDate,
                 curr: currentDate,
                 id: smokeID,
-                comp: comparison
             })
         }
     });
