@@ -29,9 +29,19 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
         second: '2-digit',
         hour12: false 
     };
-            var lastSmoke = getLastSmoke();
-            //var smokeID = lastSmoke.id;
-            var lastDate = new Date(JSON.parse(JSON.stringify(lastSmoke.date))).toLocaleDateString('pl-PL',formatOptionsDate);
+    var smokeID;
+    var lastDate;
+  
+            connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+                if(err){
+                    res.send(err.message);
+                } else {
+                    smokeID = result[0].id;
+                    lastDate = new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate);
+                }
+            })
+            
+            
             var currentDate = new Date().toLocaleDateString('pl-PL',formatOptionsDate);
             var currentTime = new Date().toLocaleDateString('pl-PL',formatOptionsTime).split(', ')[1];
             
@@ -55,19 +65,13 @@ wedzarniaRoutes.post('/addEntry',jsonParser,(req,res,next)=>{
                 last: lastDate,
                 curr: currentDate,
                 currTime: currentTime,
-               // id: smokeID,
+                id: smokeID,
                 bottomTemp: req.body.tempBottom,
                 status: status
             })      
 });
 function* getLastSmoke(){
-    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
-        if(err){
-            return err.message;
-        } else {
-            return {id: result[0].id, date: result[0].date};
-        }
-    })
+    
 }
 
 /* function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
