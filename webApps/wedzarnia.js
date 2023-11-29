@@ -69,19 +69,19 @@ wedzarniaRoutes.get('/', (req,res,next)=>{
             
 //});
 async function getLastSmoke(){
-    connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
-        if(err){
+    await connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1", (err, result) => {
+        if (err) {
             return err.message;
         } else {
-           return {
-                smokeID : result[0].id,
-                lastDate : new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL',formatOptionsDate)
-            }
+            return {
+                smokeID: result[0].id,
+                lastDate: new Date(JSON.parse(JSON.stringify(result[0].date))).toLocaleDateString('pl-PL', formatOptionsDate)
+            };
         }
     });
 }
 
-wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
+Routes.post('/addEntry',jsonParser, async (req,res,next)=>{
     var last = await getLastEntry();
     res.status(200).json({
         lastEntry: last
@@ -89,7 +89,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
 });
 
 async function getLastEntry(){
-    connection.query("select id from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+    await connection.query("select id from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             return err.message;
         } else {
