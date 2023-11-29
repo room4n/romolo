@@ -52,6 +52,8 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     }
     status = await insertEntry(data);
     res.status(200).json({
+        lastSmokeDate : lastSmokeDate,
+        smokeID: data.smokeID,
         status: status
     })
 });
