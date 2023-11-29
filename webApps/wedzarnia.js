@@ -81,7 +81,7 @@ async function getLastSmoke(){
     });
 }
 
-Routes.post('/addEntry',jsonParser, async (req,res,next)=>{
+wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     var last = await getLastEntry();
     res.status(200).json({
         lastEntry: last
@@ -89,7 +89,7 @@ Routes.post('/addEntry',jsonParser, async (req,res,next)=>{
 });
 
 async function getLastEntry(){
-    connection.query("select id from Entries ORDER BY id DESC LIMIT 1",(err,result)=>{
+    connection.query("select id from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
         if(err){
             return err.message;
         } else {
