@@ -53,6 +53,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     status = await insertEntry(data);
     res.status(200).json({
         lastSmokeDate : lastSmokeDate,
+        currentdate: currentDate,
         smokeID: data.smokeID,
         status: status
     })
