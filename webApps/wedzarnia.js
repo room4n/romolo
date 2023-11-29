@@ -48,7 +48,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     if(lastSmokeDate == currentDate){
         data.smokeID = lastEntry.id;
     } else {  
-        status = await createNewSmokeDay(currentDateTime);
+        status = await insertNewSmokeDay(currentDateTime);
         data.smokeID = await getLastSmokeDay().id;
     }
     status = await insertEntry(data);
