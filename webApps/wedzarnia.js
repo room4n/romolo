@@ -134,7 +134,7 @@ async function getLastSmokeDay(){
 
 async function insertEntry(dataSet){
     return new Promise((resolve, reject)=>{
-        connection.query("INSERT INTO Entries SET ?)",dataSet,(err,result)=>{
+        connection.query("INSERT INTO Entries SET ?",dataSet,(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
