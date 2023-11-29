@@ -101,12 +101,12 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
         //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
         //(smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp)
         var data = {
-            lastSmokeID, 
-            currentTime, 
-            tempBottom, 
-            tempTop, 
-            prod1Temp, 
-            prod2Temp
+            smokeID:lastSmokeID, 
+            dateTime:currentTime, 
+            tempBottom:tempBottom, 
+            tempTop:tempTop, 
+            product1Temp:prod1Temp, 
+            product2temp:prod2Temp
         }
         status = await insertEntry(data);
     }
@@ -134,7 +134,7 @@ async function getLastSmokeDay(){
 
 async function insertEntry(dataSet){
     return new Promise((resolve, reject)=>{
-        connection.query("INSERT INTO Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) VALUES (? ? ? ? ? ?)",dataSet,(err,result)=>{
+        connection.query("INSERT INTO Entries SET ?)",dataSet,(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
