@@ -87,7 +87,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     var currentTime = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[1];
 
-    if(lastDate == currentDate){
+    if(lastSmokeDate == currentDate){
         //insert into entries table new entry with last smokedayid
     } else {
         //create new smokeday entry
