@@ -89,15 +89,17 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
 });
 
 async function getLastEntry(){
-    await connection.query("select id from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
-        if(err){
-            return err.message;
-        } else {
-            var smokeID = result[0].id;
-            return smokeID;
-        }
-    }
-)};
+    return new Promise((resolve, reject)=>{
+        connection.query("select id from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+            if(err){
+                return reject(err.message);
+            } else {
+                var smokeID = result[0].id;
+                return resolve(smokeID);
+            }
+        })
+    });
+};
 
 /* function insertEntry(entryID, time, tempBottom, tempTop, prod1Temp, prod2Temp){
     connection.query("insert into Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) values ("+entryID+","+timr+","+tempBottom+","+tempTop+","+prod1Temp+","+prod2Temp+")",(err,result)=>{
