@@ -48,7 +48,8 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     if(lastSmokeDate == currentDate){
         data.smokeID = lastEntry.id;
     } else {  
-        //data.smokeID = createNewSmokeDay();
+        status = await createNewSmokeDay(currentDateTime);
+        data.smokeID = await getLastSmokeDay().id;
     }
     status = await insertEntry(data);
     res.status(200).json({
@@ -78,6 +79,18 @@ async function insertEntry(dataSet){
                 return reject(err.message);
             } else {
                 return resolve("done");
+            }
+        })
+    })
+}
+async function insertNewSmokeDay(dateTime){
+    dataSet = {dateTime:dateTime};
+    return new Promise((resolve,reject)=>{
+        connection.query("INSERT INTO smokeDay SET ?",dataSet,(err,result)=>{
+            if(err){
+                return reject(err.message);
+            } else {
+                return resolve("New smokeday created");
             }
         })
     })
