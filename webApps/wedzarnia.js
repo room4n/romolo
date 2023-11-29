@@ -86,6 +86,10 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     var lastSmokeDate = new Date(JSON.parse(JSON.stringify(lastEntry.date))).toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     var currentTime = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[1];
+    var tempBottom = req.body.tempBottom;
+    var tempTop = req.body.tempTop;
+    var prod1Temp = req.body.prod1Temp;
+    var prod2Temp = req.body.prod2Temp;
 
     if(lastSmokeDate == currentDate){
         //insert into entries table new entry with last smokedayid
@@ -97,12 +101,12 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
         //insertEntry(smokeID, currentTime ,req.body.tempBottom, req.body.tempTop,req.body.prod1Temp,req.body.prod2Temp);
         //(smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp)
         var data = {
-            smokeID: lastSmokeID, 
-            dateTime: currentTime, 
-            tempBottom: req.body.tempBottmom, 
-            tempTop: req.body.tempTop, 
-            product1Temp: req.body.prod1Temp, 
-            product2Temp: req.body.prod2Temp
+            lastSmokeID, 
+            currentTime, 
+            tempBottom, 
+            tempTop, 
+            prod1Temp, 
+            prod2Temp
         }
         status = await insertEntry(data);
     }
@@ -130,7 +134,7 @@ async function getLastSmokeDay(){
 
 async function insertEntry(dataSet){
     return new Promise((resolve, reject)=>{
-        connection.query("INSERT INTO Entries SET ?",dataSet,(err,result)=>{
+        connection.query("INSERT INTO Entries (smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp) VALUES (? ? ? ? ? ?)",dataSet,(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
