@@ -84,6 +84,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     var lastEntry = await getLastSmokeDay();
     var lastSmokeID = lastEntry.id;
     var lastSmokeDate = new Date(JSON.parse(JSON.stringify(lastEntry.date))).toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
+    var currentDateTime = new Date();
     var currentDate = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     var currentTime = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[1];
     var tempBottom = req.body.tempBottom;
@@ -102,7 +103,7 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
         //(smokeID, dateTime, tempBottom, tempTop, product1Temp, product2Temp)
         var data = {
             smokeID:lastSmokeID, 
-            dateTime:currentTime, 
+            dateTime:currentDateTime, 
             tempBottom:tempBottom, 
             tempTop:tempTop, 
             product1Temp:prod1Temp, 
