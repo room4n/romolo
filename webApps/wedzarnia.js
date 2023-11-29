@@ -86,7 +86,7 @@ async function insertEntry(dataSet){
 async function insertNewSmokeDay(dateTime){
     dataSet = {dateTime:dateTime};
     return new Promise((resolve,reject)=>{
-        connection.query("INSERT INTO smokeDay SET ?",dataSet,(err,result)=>{
+        connection.query("INSERT INTO SmokeDay SET ?",dataSet,(err,result)=>{
             if(err){
                 return reject(err.message);
             } else {
