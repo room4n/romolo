@@ -81,7 +81,7 @@ async function getLastSmoke(){
     });
 }
 
-Routes.post('/addEntry',jsonParser, async (req,res,next)=>{
+wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     var last = await getLastEntry();
     res.status(200).json({
         lastEntry: last
