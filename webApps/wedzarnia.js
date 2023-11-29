@@ -82,20 +82,38 @@ async function getLastSmoke(){
 }
 
 wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
-    var last = await getLastEntry();
+    var formatOptions = { 
+        day:    '2-digit', 
+        month:  '2-digit', 
+        year:   'numeric',
+        hour:   '2-digit', 
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false 
+    };
+
+    var lastEntry = await getLastEntry();
+    var smokeID = lastEntry.id;
+    var lastDate = new Date(JSON.parse(JSON.stringify(lastEntry.date))).toLocaleDateString('pl-PL',formatOptions);
+    var currentDate = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
+    var currentTime = new Date().toLocaleDateString('pl-PL',formatOptions).split(', ')[1];
+
+
     res.status(200).json({
-        lastEntry: last
+        lastID: smokeID,
+        lastDate: lastDate,
+        currentDate: currentDate,
+        currentTime: currentTime
     })
 });
 
 async function getLastEntry(){
     return new Promise((resolve, reject)=>{
-        connection.query("select id from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+        connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
             if(err){
                 return reject(err.message);
             } else {
-                var smokeID = result[0].id;
-                return resolve(smokeID);
+                return resolve({id:result[0].id,date:result[0].date});
             }
         })
     });
