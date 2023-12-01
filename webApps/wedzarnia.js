@@ -7,8 +7,9 @@ const connection = require("../config/database");
 var jsonParser = bodyParser.json();
 
 wedzarniaRoutes.get('/', async (req,res,next)=>{
-    var entries = await getEntriesBySmokeDay(4);
-    res.send(entries);
+    res.status(200).json({
+        message: "request doesn't exist"
+    })
 });
 wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
     if(Object.keys(req.body).length === 0){
@@ -19,7 +20,15 @@ wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
         res.send(entries);
     }
 });
-wedzarniaRoutes.get('/getSmokeDays')
+wedzarniaRoutes.get('/getSmokeDays',jsonParser, async (req,res,next)=>{
+    if(Object.keys(req.body).length === 0){
+        var smokeDays = await getAllSmokeDays();
+        res.send(smokeDays);
+    } else {
+        var smokeDays = await getSmokeDayById(req.body.id);
+        res.send(smokeDays);
+    }
+})
 
 wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     
@@ -71,6 +80,20 @@ async function getAllSmokeDays(){
     return new Promise((resolve,reject)=>{
         connection.query("select * from SmokeDay",(err,result)=>{
             if(err){
+                return reject(err.message);
+            } else {
+                return resolve(result);
+            }
+        })
+    })
+}
+async function getSmokeDayById(id){
+    var dataSet = {
+        smokeID : id
+    }
+    return new Promise((resolve,reject)=>{
+        connection.query("select * from SmokeDay where ?",dataSet,(err,result)=>{
+            if (err){
                 return reject(err.message);
             } else {
                 return resolve(result);
