@@ -10,6 +10,14 @@ wedzarniaRoutes.get('/', async (req,res,next)=>{
     var entries = await getEntriesBySmokeDay(4);
     res.send(entries);
 });
+wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
+    if(req.body.id){
+        var entries = await getAllEntries();
+    }else {
+        var entries = await getEntriesBySmokeDay(req.body.id);
+        res.send(entries);
+    }
+})
 
 wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     
@@ -98,6 +106,17 @@ async function getEntriesBySmokeDay(id){
     }
     return new Promise((resolve,reject)=>{
         connection.query("select * from Entries where ?",dataSet,(err,result)=>{
+            if (err){
+                return reject(err.message);
+            } else {
+                return resolve(result);
+            }
+        })
+    })
+}
+async function getAllEntries(){
+    return new Promise((resolve,reject)=>{
+        connection.query("select * from Entries",dataSet,(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
