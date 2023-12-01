@@ -97,7 +97,7 @@ async function getEntriesBySmokeDay(id){
         smokeID : id
     }
     return new Promise((resolve,reject)=>{
-        connection.query("select * from Entries where SET ?",dataSet,(err,result)=>{
+        connection.query("select * from Entries where ?",dataSet,(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
