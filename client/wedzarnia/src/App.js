@@ -8,8 +8,8 @@ function App() {
     <div className="App">
       
       <div>
-      <Link to='/wedzarnia/'>History</Link>
-      <Link to='/wedzarnia/live'>Live</Link>
+      <Link to='/'>History</Link>
+      <Link to='/live'>Live</Link>
       <Router ></Router>
       </div>
       
