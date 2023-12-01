@@ -11,9 +11,15 @@ wedzarniaRoutes.get('/', async (req,res,next)=>{
     res.send(entries);
 });
 wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
+    if(isEmpty(req.body)){
+        var entries = await getAllEntries();
+        res.send(entries);
+    } else {
         var entries = await getEntriesBySmokeDay(req.body.id);
         res.send(entries);
-})
+    }
+});
+wedzarniaRoutes.get('/getSmokeDays')
 
 wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     
