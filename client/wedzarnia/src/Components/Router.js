@@ -11,8 +11,8 @@ class Router extends Component {
     render(){
         return(
             <Routes>
-                <Route path='/' element={<History />} />
-                <Route path='/live' element={<Live />} />
+                <Route path='./' element={<History />} />
+                <Route path='./live' element={<Live />} />
             </Routes>
         )
     }
