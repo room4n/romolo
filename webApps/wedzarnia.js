@@ -6,14 +6,9 @@ const connection = require("../config/database");
 
 var jsonParser = bodyParser.json();
 
-wedzarniaRoutes.get('/', (req,res,next)=>{
-    connection.query("select * from Entries",(err,result)=>{
-        if(err){
-            res.send(err.message)
-        } else {
-            res.send(result)
-        }
-    })
+wedzarniaRoutes.get('/', async (req,res,next)=>{
+    var entries = await getAllSmokeDays();
+    res.send(entries);
 });
 
 wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
@@ -61,6 +56,18 @@ wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
     })
 });
 
+//SmokeDays
+async function getAllSmokeDays(){
+    return new Promise((resolve,reject)=>{
+        connection.query("select * from SmokeDay",(err,result)=>{
+            if(err){
+                return reject(err.message);
+            } else {
+                return resolve(result);
+            }
+        })
+    })
+}
 async function getLastSmokeDay(){
     return new Promise((resolve, reject)=>{
         connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
@@ -72,18 +79,6 @@ async function getLastSmokeDay(){
         })
     });
 };
-
-async function insertEntry(dataSet){
-    return new Promise((resolve, reject)=>{
-        connection.query("INSERT INTO Entries SET ?",dataSet,(err,result)=>{
-            if (err){
-                return reject(err.message);
-            } else {
-                return resolve("done");
-            }
-        })
-    })
-}
 async function insertNewSmokeDay(dateTime){
     dataSet = {date:dateTime};
     return new Promise((resolve,reject)=>{
@@ -96,5 +91,32 @@ async function insertNewSmokeDay(dateTime){
         })
     })
 }
+//Entries
+async function getEntriesBySmokeDay(id){
+    var dataSet = {
+        smokeID : id
+    }
+    return new Promise((resolve,reject)=>{
+        connection.query("select * from Entries where SET ?",dataSet,(err,result)=>{
+            if (err){
+                return reject(err.message);
+            } else {
+                return resolve(result);
+            }
+        })
+    })
+}
+async function insertEntry(dataSet){
+    return new Promise((resolve, reject)=>{
+        connection.query("INSERT INTO Entries SET ?",dataSet,(err,result)=>{
+            if (err){
+                return reject(err.message);
+            } else {
+                return resolve("done");
+            }
+        })
+    })
+}
+
 
 module.exports = wedzarniaRoutes;
