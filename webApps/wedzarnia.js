@@ -11,7 +11,7 @@ wedzarniaRoutes.get('/', async (req,res,next)=>{
     res.send(entries);
 });
 wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
-    if(isEmpty(req.body)){
+    if(Object.keys(req.body).length === 0){
         var entries = await getAllEntries();
         res.send(entries);
     } else {
