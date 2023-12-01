@@ -11,7 +11,7 @@ wedzarniaRoutes.get('/', async (req,res,next)=>{
     res.send(entries);
 });
 wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
-    if(req.body.id){
+    if(req.body){
         var entries = await getAllEntries();
     }else {
         var entries = await getEntriesBySmokeDay(req.body.id);
