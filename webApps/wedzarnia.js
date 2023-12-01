@@ -89,7 +89,7 @@ async function getAllSmokeDays(){
 }
 async function getSmokeDayById(id){
     var dataSet = {
-        smokeID : id
+        id : id
     }
     return new Promise((resolve,reject)=>{
         connection.query("select * from SmokeDay where ?",dataSet,(err,result)=>{
