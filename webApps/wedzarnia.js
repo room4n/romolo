@@ -116,7 +116,7 @@ async function getEntriesBySmokeDay(id){
 }
 async function getAllEntries(){
     return new Promise((resolve,reject)=>{
-        connection.query("select * from Entries",dataSet,(err,result)=>{
+        connection.query("select * from Entries",(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
