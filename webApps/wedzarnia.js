@@ -7,7 +7,7 @@ const connection = require("../config/database");
 var jsonParser = bodyParser.json();
 
 wedzarniaRoutes.get('/', async (req,res,next)=>{
-    var entries = await getAllSmokeDays();
+    var entries = await getEntriesBySmokeDay(4);
     res.send(entries);
 });
 
