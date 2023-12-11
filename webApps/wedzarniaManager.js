@@ -7,11 +7,11 @@ const connection = require("../config/database");
 var jsonParser = bodyParser.json();
 
 
-wedzarnia.get('/', async (req,res,next)=>{
+wedzarniaManager.get('/', async (req,res,next)=>{
     res.status(200).json({
         message: "Wedzarnia manager"
     })
 });
 
 
-module.exports = wedzarnia;
+module.exports = wedzarniaManager;
