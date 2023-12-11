@@ -94,7 +94,7 @@ wedzarniaManager.post('/deleteSmokes',jsonParser, async (req,res,next)=>{
 
 async function removeAllSmokeDays(){
     return new Promise((resolve,reject)=>{
-        connection.query("TRUNCATE from SmokeDay",async (err,result)=>{
+        connection.query("TRUNCATE table SmokeDay",async (err,result)=>{
             if(err){
                 return reject(err.message);
             } else {
@@ -108,7 +108,7 @@ async function removeAllSmokeDays(){
 async function removeEntries(){
     
     return new Promise((resolve,reject)=>{
-        connection.query("TRUNCATE from Entries",(err,result)=>{
+        connection.query("TRUNCATE table Entries",(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
