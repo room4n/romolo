@@ -23,14 +23,18 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
         await insertNewSmokeDay(day);
         for(var j = 0; j<req.body.entries; j++){
             var temp = await getLastSmokeDay();
-
+            var time = day.setMinutes(day.getMinutes()+j);
+            var tempB = 40+j*1.1;
+            var tempT = 38+j*1.2;
+            var temp1 = 34+j*1.5;
+            var temp2 = 36+j*1.8;
             var data = {
                 smokeID:temp.id, 
-                dateTime:day, 
-                tempBottom:40, 
-                tempTop:45, 
-                product1Temp:34, 
-                product2temp:34
+                dateTime:time, 
+                tempBottom:tempB, 
+                tempTop:tempT, 
+                product1Temp:temp1, 
+                product2temp:temp2
             };
 
             await insertEntry(data);
