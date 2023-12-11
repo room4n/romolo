@@ -18,9 +18,9 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
     var entries = req.body.entries;
     var today = new Date();
     today = today.setDate(today.getDate()-5);
-
+    var readableDate = today.toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     res.status(200).json({
-        days: today
+        days: readableDate
     });
 })
 
