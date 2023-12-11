@@ -16,7 +16,9 @@ wedzarniaManager.get('/', async (req,res,next)=>{
 wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
     var days = req.body.days;
     var entries = req.body.entries;
-    res.send(days);
+    res.status(200).json({
+        days: days
+    });
 })
 
 wedzarniaManager.post('/deleteSmokeDay',jsonParser, async (req,res,next)=>{
