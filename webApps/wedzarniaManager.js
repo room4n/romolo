@@ -13,11 +13,8 @@ wedzarniaManager.get('/', async (req,res,next)=>{
     })
 });
 
-wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
-    var days = req.body.days;
-    var entries = req.body.entries;
-
-    for(var i = req.body.days; i>0; i--){
+wedzarniaManager.post('/regenerateData',jsonParser, async (req,res,next)=>{
+   for(var i = req.body.days; i>0; i--){
         var day = new Date();
         day.setDate(day.getDate()-i);
         await insertNewSmokeDay(day);
