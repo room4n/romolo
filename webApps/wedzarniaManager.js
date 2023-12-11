@@ -17,23 +17,65 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
     var days = req.body.days;
     var entries = req.body.entries;
 
-    var formatOptions = { 
-        day:    '2-digit', 
-        month:  '2-digit', 
-        year:   'numeric',
-        hour:   '2-digit', 
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false 
-    };
+    for(var i = req.body.days; i>0; i--){
+        var day = new Date();
+        day.setDate(day.getDate()-i);
+        await insertNewSmokeDay(day);
+        for(var j = 0; j<req.body.entries; j++){
+            var temp = await getLastSmokeDay();
+            var data = {
+                smokeID:temp.id, 
+                dateTime:currentDateTime, 
+                tempBottom:req.body.tempBottom, 
+                tempTop:req.body.tempTop, 
+                product1Temp:req.body.prod1Temp, 
+                product2temp:req.body.prod2Temp
+            };
 
-    var today = new Date();
-    today.setDate(today.getDate()-15);
-    var readableDate = today.toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
+            await insertEntry(data);
+        }
+    }
     res.status(200).json({
-        days: today
+        message: "Looks ok."
     });
 })
+
+async function insertNewSmokeDay(dateTime){
+    dataSet = {date:dateTime};
+    return new Promise((resolve,reject)=>{
+        connection.query("INSERT INTO SmokeDay SET ?",dataSet,(err,result)=>{
+            if(err){
+                return reject(err.message);
+            } else {
+                return resolve("New smokeday created");
+            }
+        })
+    })
+}
+
+async function insertEntry(dataSet){
+    return new Promise((resolve, reject)=>{
+        connection.query("INSERT INTO Entries SET ?",dataSet,(err,result)=>{
+            if (err){
+                return reject(err.message);
+            } else {
+                return resolve("done");
+            }
+        })
+    })
+}
+
+async function getLastSmokeDay(){
+    return new Promise((resolve, reject)=>{
+        connection.query("select id, date from SmokeDay ORDER BY id DESC LIMIT 1",(err,result)=>{
+            if(err){
+                return reject(err.message);
+            } else {
+                return resolve({id:result[0].id,date:result[0].date});
+            }
+        })
+    });
+};
 
 wedzarniaManager.post('/deleteSmokeDay',jsonParser, async (req,res,next)=>{
     if(Object.keys(req.body).length === 0){
