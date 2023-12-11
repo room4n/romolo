@@ -31,7 +31,7 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
     //today = today.setDate(today.getDate()-5);
     var readableDate = today.toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     res.status(200).json({
-        days: readableDate
+        days: today
     });
 })
 
