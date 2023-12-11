@@ -82,7 +82,7 @@ async function getLastSmokeDay(){
     });
 };
 
-wedzarniaManager.post('/deleteSmokeDay',jsonParser, async (req,res,next)=>{
+wedzarniaManager.post('/deleteSmokes',jsonParser, async (req,res,next)=>{
     if(Object.keys(req.body).length === 0){
         var deleted = await removeAllSmokeDays();
         res.send(deleted);
@@ -94,27 +94,28 @@ wedzarniaManager.post('/deleteSmokeDay',jsonParser, async (req,res,next)=>{
 
 async function removeAllSmokeDays(){
     return new Promise((resolve,reject)=>{
-        connection.query("DELETE from SmokeDay",(err,result)=>{
+        connection.query("DELETE from SmokeDay",async (err,result)=>{
             if(err){
                 return reject(err.message);
             } else {
+                await removeEntries();
                 return resolve("All smoke days removed");
             }
         })
     })
 }
-async function removeSmokeDay(id){
-    var dataSet = {
-        smokeID : id
-    }
+
+async function removeEntries(){
+    
     return new Promise((resolve,reject)=>{
-        connection.query("DELETE from Entries where ?",dataSet,(err,result)=>{
+        connection.query("DELETE from Entries",(err,result)=>{
             if (err){
                 return reject(err.message);
             } else {
-                return resolve("Smoke day "+id+" removed");
+                return resolve("All removed");
             }
         })
     })
 }
+
 module.exports = wedzarniaManager;
