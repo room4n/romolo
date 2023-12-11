@@ -17,7 +17,7 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
     var days = req.body.days;
     var entries = req.body.entries;
     var today = new Date();
-    today = today.setDate(getDate()-5);
+    today = today.setDate(today.getDate()-5);
 
     res.status(200).json({
         days: today
