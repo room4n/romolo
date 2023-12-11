@@ -25,11 +25,11 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
             var temp = await getLastSmokeDay();
             var data = {
                 smokeID:temp.id, 
-                dateTime:currentDateTime, 
-                tempBottom:req.body.tempBottom, 
-                tempTop:req.body.tempTop, 
-                product1Temp:req.body.prod1Temp, 
-                product2temp:req.body.prod2Temp
+                dateTime:day.setMinutes(day.getMinutes()+j), 
+                tempBottom:40+j+0.5, 
+                tempTop:45+j*0.5, 
+                product1Temp:34+j*1.5, 
+                product2temp:34+j*1.7
             };
 
             await insertEntry(data);
