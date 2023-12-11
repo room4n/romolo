@@ -28,6 +28,7 @@ wedzarniaManager.post('/generateData',jsonParser, async (req,res,next)=>{
     };
 
     var today = new Date();
+    today.setDate(today.getDate()-1);
     //today = today.setDate(today.getDate()-5);
     var readableDate = today.toLocaleDateString('pl-PL',formatOptions).split(', ')[0];
     res.status(200).json({
