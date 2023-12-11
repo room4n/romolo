@@ -1,17 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const wedzarniaRoutes = express.Router();
+const wedzarnia = express.Router();
 const connection = require("../config/database");
 
 var jsonParser = bodyParser.json();
 
-wedzarniaRoutes.get('/', async (req,res,next)=>{
+
+
+
+wedzarnia.get('/', async (req,res,next)=>{
     res.status(200).json({
         message: "request doesn't exist"
     })
 });
-wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
+
+wedzarnia.get('/getEntries',jsonParser, async (req,res,next)=>{
     if(Object.keys(req.body).length === 0){
         var entries = await getAllEntries();
         res.send(entries);
@@ -20,7 +24,8 @@ wedzarniaRoutes.get('/getEntries',jsonParser, async (req,res,next)=>{
         res.send(entries);
     }
 });
-wedzarniaRoutes.get('/getSmokeDays',jsonParser, async (req,res,next)=>{
+
+wedzarnia.get('/getSmokeDays',jsonParser, async (req,res,next)=>{
     if(Object.keys(req.body).length === 0){
         var smokeDays = await getAllSmokeDays();
         res.send(smokeDays);
@@ -30,7 +35,7 @@ wedzarniaRoutes.get('/getSmokeDays',jsonParser, async (req,res,next)=>{
     }
 })
 
-wedzarniaRoutes.post('/addEntry',jsonParser, async (req,res,next)=>{
+wedzarnia.post('/addEntry',jsonParser, async (req,res,next)=>{
     
     var formatOptions = { 
         day:    '2-digit', 
@@ -163,4 +168,4 @@ async function insertEntry(dataSet){
 }
 
 
-module.exports = wedzarniaRoutes;
+module.exports = wedzarnia;
