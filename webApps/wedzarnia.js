@@ -15,7 +15,7 @@ wedzarnia.get('/', async (req,res,next)=>{
     })
 });
 
-wedzarnia.get('/getEntries',jsonParser, async (req,res,next)=>{
+wedzarnia.post('/getEntries',jsonParser, async (req,res,next)=>{
     res.header("Access-Control-Allow-Origin", "*");
     if(Object.keys(req.body).length === 0){
         var entries = await getAllEntries();

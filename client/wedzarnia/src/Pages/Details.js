@@ -4,15 +4,16 @@ import { useLocation } from 'react-router-dom';
 const Details = () =>{
     let { state } = useLocation().state;
     const [entries, setEntries] = useState();
-    console.log(state);
+    console.log(state.id);
 
     useEffect(()=>{
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
+            mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: state.id })
         };
-        fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", {method: "GET", mode: 'cors'})
+        fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", requestOptions)
         .then(response => response.json())
            .then(data => {
                console.log(data)
