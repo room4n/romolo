@@ -8,12 +8,12 @@ const Details = () =>{
 
     useEffect(()=>{
         const requestOptions = {
-            method: 'GET',
-            mode: 'cors',
+            method: 'POST',
+            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: state.id })
         };
-        fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", requestOptions)
+        fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", {method: "POST", mode: 'no-cors', headers: { "Content-Type": "application/json" }})
         .then(response => response.json())
            .then(data => {
                console.log(data)
