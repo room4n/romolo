@@ -9,14 +9,15 @@ const Details = () =>{
     useEffect(()=>{
         const requestOptions = {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: state.id })
         };
-        fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", {method: "POST", mode: 'no-cors', headers: { "Content-Type": "application/json" }})
+        fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", requestOptions)
         .then(response => response.json())
            .then(data => {
-               console.log(data)
+               
+               setEntries(data);
            }).catch((error) => {
                console.log(error)
              })
@@ -26,6 +27,10 @@ const Details = () =>{
     return(
         <div>
             Details {state.id}
+            {entries && entries.map(entry=>(
+                <div>{entry.dateTime.split('T')[0]} + {entry.id}</div>
+            ))
+            }
         </div>
     )
 }
