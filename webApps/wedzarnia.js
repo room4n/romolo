@@ -16,6 +16,7 @@ wedzarnia.get('/', async (req,res,next)=>{
 });
 
 wedzarnia.get('/getEntries',jsonParser, async (req,res,next)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     if(Object.keys(req.body).length === 0){
         var entries = await getAllEntries();
         res.send(entries);
@@ -37,7 +38,7 @@ wedzarnia.get('/getSmokeDays',jsonParser, async (req,res,next)=>{
 })
 
 wedzarnia.post('/addEntry',jsonParser, async (req,res,next)=>{
-    
+    res.header("Access-Control-Allow-Origin", "*");
     var formatOptions = { 
         day:    '2-digit', 
         month:  '2-digit', 

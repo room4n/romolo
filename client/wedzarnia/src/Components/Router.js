@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import History from '../Pages/History';
 import Live from '../Pages/Live';
+import Details from '../Pages/Details';
 
 class Router extends Component {
     constructor(props){
@@ -11,8 +12,9 @@ class Router extends Component {
     render(){
         return(
             <Routes>
-                <Route path='/wedzarnia/' element={<History />} />
-                <Route path='/wedzarnia/live' element={<Live />} />
+                <Route name="wedzarnia" path='/wedzarnia/' element={<History />} />
+                <Route name="live" path='/wedzarnia/live' element={<Live />} />
+                <Route name="details" path='/wedzarnia/details' element={<Details />}/>
             </Routes>
         )
     }

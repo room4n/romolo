@@ -5,26 +5,26 @@ class History extends Component{
     constructor(props){
         super(props);
         this.state = {
-            //call for smokeday items
+            smokeDays: []
         }
-        fetch('http://192.168.1.125:3000/wedzarnia/api/getSmokeDays',{method: "GET", mode: 'no-cors'})
-        .then(res=>{
-            return res.json();
-        })
-        .then(data => {
-            console.log(data);
-        }).catch((error) => console.log(error));
+        fetch("http://192.168.1.125:3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
+             .then(response => response.json())
+                .then(data => {
+                    this.setState({list: data})
+                }).catch((error) => {
+                    console.log(error)
+                  })
+
     }
-    componentDidUpdate(prevProps){
-        //call for smoke day items (?)
-    }
+    
     render(){
         return(
             <div>
-                History
-                <SmokeDay />
-                </div>
-            //list smokedays as components
+                {this.state.list && this.state.list.map(item => (
+                    <SmokeDay  key={item.id} smokeDay={item} />
+                    ))
+                }
+            </div>
         )
     }
 }
