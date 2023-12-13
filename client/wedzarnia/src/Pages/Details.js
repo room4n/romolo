@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Plot from '../Components/Chart';
 
 const Details = () =>{
     let { state } = useLocation().state;
     const [entries, setEntries] = useState();
-    console.log(state.id);
 
     useEffect(()=>{
         const requestOptions = {
@@ -26,11 +26,7 @@ const Details = () =>{
 
     return(
         <div>
-            Details {state.id}
-            {entries && entries.map(entry=>(
-                <div>{entry.dateTime.split('T')[0]} + {entry.id}</div>
-            ))
-            }
+            {entries && <Plot dataset={entries}/>}
         </div>
     )
 }
