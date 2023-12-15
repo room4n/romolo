@@ -22,7 +22,7 @@ wedzarniaManager.post('/regenerateData',jsonParser, async (req,res,next)=>{
             var temp = await getLastSmokeDay();
             day.setMinutes(day.getMinutes()+j);
             var tempB = 40+j*1.1;
-            var tempT = 38+j*1.2;
+            var tempT = 38+j*j/1.2;
             var temp1 = 34+j*1.5;
             var temp2 = 36+j*j/1.8;
             var data = {
