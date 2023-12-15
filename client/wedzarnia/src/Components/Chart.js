@@ -27,7 +27,7 @@ class Plot extends Component{
     render(){
         return(
             <div>
-               <Line data={this.state} options={{animation:false}}/>               
+               <Line data={this.state} options={{animation:false, bezierCurve: true}}/>               
             </div>
         )
     }

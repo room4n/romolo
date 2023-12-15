@@ -14,6 +14,7 @@ const Details = () =>{
             body: JSON.stringify({ id: state.id })
         };
         fetch("http://"+window.location.hostname+":3000/wedzarnia/api/getEntries", requestOptions)
+        //fetch("http://192.168.1.125:3000/wedzarnia/api/getEntries", requestOptions)
         .then(response => response.json())
            .then(data => {
                
