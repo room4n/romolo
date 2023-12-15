@@ -24,7 +24,7 @@ wedzarniaManager.post('/regenerateData',jsonParser, async (req,res,next)=>{
             var tempB = 40+j*1.1;
             var tempT = 38+j*1.2;
             var temp1 = 34+j*1.5;
-            var temp2 = 36+j*1.8;
+            var temp2 = 36+j*j/1.8;
             var data = {
                 smokeID:temp.id, 
                 dateTime:day, 
