@@ -7,7 +7,7 @@ class History extends Component{
         this.state = {
             smokeDays: []
         }
-        fetch("http://localhost:3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
+        fetch("http://"+window.location.hostname+":3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
              .then(response => response.json())
                 .then(data => {
                     this.setState({list: data})
