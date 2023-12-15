@@ -23,7 +23,7 @@ class History extends Component{
                 {this.state.list && this.state.list.map(item => (
                     <SmokeDay  key={item.id} smokeDay={item} />
                     ))
-                }
+                || <p>loading...</p>} 
             </div>
         )
     }
