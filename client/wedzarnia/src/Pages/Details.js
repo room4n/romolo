@@ -26,7 +26,7 @@ const Details = () =>{
 
     return(
         <div>
-            {entries && <Plot dataset={entries}/>}
+            {entries && <Plot dataset={entries}/> || <p>loading...</p>}
         </div>
     )
 }
