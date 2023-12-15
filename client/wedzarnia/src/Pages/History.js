@@ -7,8 +7,8 @@ class History extends Component{
         this.state = {
             smokeDays: []
         }
-        //fetch("http://"+window.location.hostname+":3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
-        fetch("http://192.168.1.125:3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
+        fetch("http://"+window.location.hostname+":3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
+        //fetch("http://192.168.1.125:3000/wedzarnia/api/getSmokeDays", {method: "GET", mode: 'cors'})
              .then(response => response.json())
                 .then(data => {
                     this.setState({list: data})
@@ -21,6 +21,7 @@ class History extends Component{
     render(){
         return(
             <div>
+                <div class="header"><strong><desc style={{color:"#C6CBE1"}}>Ostatnie</desc> wędzenia:</strong></div>
                 {this.state.list && this.state.list.map(item => (
                     <SmokeDay  key={item.id} smokeDay={item} />
                     ))
